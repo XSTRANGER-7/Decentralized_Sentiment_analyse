@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.50",
+  "scripts": {
+    "dev": "pm2-dev start src/index.ts",
+    "prod-start": "pm2 start src/index.ts --watch --name tappin-api",
+    "prod-stop": "pm2 stop tappin-api",
+    "gen": "bunx prisma generate",
+    "migrate": "bunx prisma migrate dev",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@bogeychan/elysia-logger": "^0.0.22",
+    "@elysiajs/cors": "^1.0.2",
+    "@elysiajs/swagger": "^1.0.5",
+    "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@prisma/client": "^5.16.1",
+    "@solana/pay": "^0.2.5",
+    "@solana/web3.js": "^1.94.0",
+    "bignumber.js": "^9.1.2",
+    "elysia": "latest",
+    "lucia": "^3.2.0",
+    "minio": "^8.0.1",
+    "pino-pretty": "^11.2.1",
+    "pm2": "^5.4.1"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "prisma": "^5.16.1",
+    "tsx": "^4.15.8"
+  },
+  "module": "src/index.js"
+}

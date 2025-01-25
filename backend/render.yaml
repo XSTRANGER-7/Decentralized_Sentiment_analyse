@@ -1,0 +1,13 @@
+services:  
+  - type: web
+    name: tappin-api
+    runtime: node
+    repo: https://github.com/r3yc0n1c/tappin-core
+    plan: free
+    envVars:
+    - key: BUN_VERSION
+      value: latest
+    region: singapore
+    buildCommand: bun install
+    startCommand: bun dev
+version: "1"

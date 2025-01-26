@@ -14,7 +14,7 @@ export default function SearchWrapper() {
       try {
         const response = await axios.get("http://localhost:4000/machines/all");
         const data = response.data;
-  
+        console.log("Machines:", data);
         setMachines(data.map((machine: any) => ({
           ...machine,
           id: String(machine.id), // Convert id to string

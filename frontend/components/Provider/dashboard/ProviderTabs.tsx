@@ -39,6 +39,10 @@ export default function ProviderTabs({ onChange, activeIdx }: Props) {
                 onChange(2)
                 setActiveIndex(2)
             }} active={activeIndex === 2 ? true : false} />
+            <ChipsButton content='computation Request' onClick={() => {
+                onChange(3)
+                setActiveIndex(3)
+            }} active={activeIndex === 3 ? true : false} />
         </div>
     )
 }

@@ -8,7 +8,8 @@ import Resources from './screens/Resources';
 // import Earnings from './screens/Earnings';
 import Transactions from './screens/Transactions';
 import Machines from './screens/Machines';
-const tabs = [<Resources key={1} />, <Transactions key={2} />, <Machines key={3} />];
+import Computation from './screens/Computation';
+const tabs = [<Resources key={1} />, <Transactions key={2} />, <Machines key={3} />,<Computation key={4} />];
 export default function ProviderDashboard() {
     const [activeTab, setActiveTab] = useState(0);
     return (

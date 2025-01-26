@@ -6,12 +6,12 @@ import User from '../Schemas/User.js';
 // Create a machine
 export const createMachine = async (req, res) => {
     try {
-        const { title, time, cpu=56, ram, size, userId="679509efe85e7024f70dcf04" } = req.body;
+        const { title, time, cpu=56, ram, size, email } = req.body;
 
         // Find the user from MongoDB
+        const user = await User.findOne({email});
 
         console.log("koo")
-        const user = await User.findById(userId);
         console.log(user);
         if (!user) {
             return res.status(401).json({ message: 'User not found' });
@@ -25,7 +25,7 @@ export const createMachine = async (req, res) => {
             cpu,
             ram,
             size,
-            userId
+            userId : user._id,
         });
 
         console.log(newMachine);

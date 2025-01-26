@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Poller from "./Poliing";
+import Poller from "./Polling";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 

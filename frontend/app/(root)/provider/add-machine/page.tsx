@@ -21,14 +21,19 @@ export default function Page() {
     storage: "",
     rentalTime: "",
   });
-
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+  
+    const title = (form.elements.namedItem("title") as HTMLInputElement).value;
+  const ram = (form.elements.namedItem("ram") as HTMLInputElement).value;
+  const size = (form.elements.namedItem("size") as HTMLInputElement).value;
+  const time = (form.elements.namedItem("time") as HTMLInputElement).value;
     const res = await axios.post("http://localhost:4000/machines/create", {
-      title: e.currentTarget.title.value,
-      ram: e.currentTarget.ram.value,
-      size: e.currentTarget.size.value,
-      time: e.currentTarget.time.value,
+      title,
+      ram,
+      size,
+      time,
       email : localStorage.getItem('user')
     });
 

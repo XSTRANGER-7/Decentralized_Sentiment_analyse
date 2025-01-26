@@ -61,7 +61,7 @@ export default function OnboardTabs() {
                             const name = e.get("name")?.toString() ?? "";
 
 
-                            signUp({ email: email, password: password, address: publicKey?.toString() ?? "", name: name })
+                            signUp({ email: email, password: password, address:  "", name: name })
                             localStorage.setItem("user", email);
 
 

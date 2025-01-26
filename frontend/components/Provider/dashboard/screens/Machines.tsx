@@ -4,15 +4,19 @@ import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
-interface Machine {
-  id: string;
+type Machine = {
   name: string;
-  specs: {
-      ram: string;
-      cores: string;
-      remainingTime: string;
-  };
-}
+  // Add other properties here, e.g.:
+  cpu :string ;
+  
+
+  ram: string;
+  size: string;
+  time: string;
+};
+
+
+
 
 export default function Machines() {
   const [machines, setMachines] = useState<Machine[]>([]);

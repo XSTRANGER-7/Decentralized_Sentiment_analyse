@@ -202,7 +202,6 @@ export default function Computation() {
                       setSelectedRequest(request);
                       setIsDialogOpen(true);
                     }}
-                    variant="outline"
                   >
                     View Details
                   </button>
@@ -263,7 +262,6 @@ export default function Computation() {
                           onClick={() =>
                             handleAction(selectedRequest._id, "reject")
                           }
-                          variant="destructive"
                           disabled={actionLoading}
                           className="px-4 py-2 rounded-md bg-red-600 border-2 border-white"
                         >

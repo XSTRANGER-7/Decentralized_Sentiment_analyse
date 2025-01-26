@@ -1,6 +1,6 @@
 // pages/index.js
 import { useState, useEffect } from 'react';
-import {  Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/card';
+import {  Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react'; // Import the spinner from Lucide
 import axios from 'axios';

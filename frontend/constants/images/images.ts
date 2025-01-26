@@ -1,3 +1,4 @@
+import curve from '@/assets/curve.png';
 export const images = {
     logo: "/logo-color.svg",
     "log-black": "/logo-black.svg",
@@ -14,4 +15,5 @@ export const images = {
     here: "/assets/svgs/here.svg",
     rentHome: "/assets/svgs/rent.svg",
     machineAdd: "/assets/svgs/machineadd.svg",
+    curve: "/assets/curve.png",
 };

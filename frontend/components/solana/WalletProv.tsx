@@ -1,38 +1,28 @@
+// app/components/Aptos/WalletProv.tsx
 "use client";
 import React, { useMemo } from "react";
-import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solana/web3.js";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+import { PetraWallet } from "petra-plugin-wallet-adapter";
 import NavbarMain from "@/components/common/NavbarMain";
 import Footer from "@/components/common/Footer";
 
-require("@solana/wallet-adapter-react-ui/styles.css");
-
 export default function WalletProv({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    const network = WalletAdapterNetwork.Testnet;
+  // Define the wallets you'd like to use
+  const wallets = useMemo(() => [new PetraWallet()], []);
 
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(() => [
-        new PhantomWalletAdapter()
-    ], [network]);
-
-    return (
-        <>
-            <ConnectionProvider endpoint={endpoint}>
-                <WalletProvider wallets={wallets} autoConnect>
-                    <WalletModalProvider>
-                        <NavbarMain />
-                        {children}
-                        <Footer />
-                    </WalletModalProvider>
-                </WalletProvider>
-            </ConnectionProvider></>
-    );
+  return (
+    <>
+      <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
+        <NavbarMain /> 
+        {children}
+        <div className="">
+          <Footer />
+        </div>
+      </AptosWalletAdapterProvider>
+    </>
+  );
 }

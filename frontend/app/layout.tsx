@@ -1,24 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { general_sans } from "@/fonts/fonts";
-
+import WalletProv from "@/components/solana/WalletProv";
 
 export const metadata: Metadata = {
-  title: "TAppIN",
-  description: "need resources? or have resources? we got you covered",
-  authors: [{ name: "Raja Majumdar" }, { name: "Ankit Paul" }, { name: "Diptanshu Mahish" }, { name: "Abhirup Saha" }],
-
-  keywords: [
-    "TAppIN",
-    "TAPPIN",
-    "tappin"
+  title: "DecnAIX",
+  description: "",
+  authors: [
+    { name: "Krish Agarwal" },
+    { name: "Vraj Shah" },
+    { name: "Hemil Dudhat" },
   ],
-  robots: "index,follow",
-  applicationName: "TAppIN",
-  category: "resources",
-  creator: "Diptanshu Mahish, Raja Majumdar, Abhirup Saha, Ankit Paul",
-};
 
+  keywords: ["DecnAIX", "DecnAIX", "decnaix"],
+  robots: "index,follow",
+  applicationName: "DecnAIX",
+  category: "resources",
+  creator: "Krish Agarwal, Vraj Shah, Hemil Dudhat",
+};
 
 export default function RootLayout({
   children,
@@ -27,8 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${general_sans.className} bg-[#d0d3c1]`}>
-
+      <body className={`${general_sans.className} bg-[#f0ffff]`}>
         {children}
       </body>
     </html>

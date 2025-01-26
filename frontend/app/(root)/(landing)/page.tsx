@@ -7,7 +7,7 @@ export default function Home() {
     <main className="">
       <HeaderHome />
       <HeaderFAQ />
-      <LureToOnboard />
+      {/* <LureToOnboard /> */}
     </main>
   );
 }

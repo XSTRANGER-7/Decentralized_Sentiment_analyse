@@ -11,15 +11,15 @@ export default function ProviderTabs({ onChange, activeIdx }: Props) {
     const [activeIndex, setActiveIndex] = useState(activeIdx);
     return (
         <div className='flex items-center gap-4 py-2'>
-            <ChipsButton content='Launch app' onClick={() => {
+            {/* <ChipsButton content='Launch app' onClick={() => {
                 onChange(0);
                 setActiveIndex(0)
-            }} active={activeIndex === 0 ? true : false} />
+            }} active={activeIndex === 0 ? true : false} /> */}
             <ChipsButton content='Earnings Calculate' onClick={() => {
-                onChange(1)
-                setActiveIndex(1)
-            }} active={activeIndex === 1 ? true : false} />
-            <ChipsButton content='Status' onClick={() => {
+                onChange(0)
+                setActiveIndex(0)
+            }} active={activeIndex === 0 ? true : false} />
+            {/* <ChipsButton content='Status' onClick={() => {
                 onChange(2)
                 setActiveIndex(2)
             }} active={activeIndex === 2 ? true : false} />
@@ -30,15 +30,15 @@ export default function ProviderTabs({ onChange, activeIdx }: Props) {
             <ChipsButton content='Earnings' onClick={() => {
                 onChange(4)
                 setActiveIndex(4)
-            }} active={activeIndex === 4 ? true : false} />
+            }} active={activeIndex === 4 ? true : false} /> */}
             <ChipsButton content='Transactions' onClick={() => {
-                onChange(5)
-                setActiveIndex(5)
-            }} active={activeIndex === 5 ? true : false} />
+                onChange(1)
+                setActiveIndex(1)
+            }} active={activeIndex === 1 ? true : false} />
             <ChipsButton content='Your machines' onClick={() => {
-                onChange(6)
-                setActiveIndex(6)
-            }} active={activeIndex === 6 ? true : false} />
+                onChange(2)
+                setActiveIndex(2)
+            }} active={activeIndex === 2 ? true : false} />
         </div>
     )
 }

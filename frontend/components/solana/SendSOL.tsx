@@ -45,7 +45,7 @@ export default function SendSOL({ lamps, toKey }: Props) {
 
   return (
     <Button
-      className="generalBorder offsetEffect  bg-green-300 text-black hover:text-white"
+      className="generalBorder bg-green-300 text-black hover:text-white"
       onClick={onClick}
       disabled={!publicKey}>
       Send SOL

@@ -1,25 +1,27 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 export default function Footer() {
-    return (
-        <footer className='bg-gray-900 flex justify-between items-center text-white px-[5%] py-[2%]'>
-            <div>
-                <div className='text-gray-500'>
-                    Quick links
-                </div>
-                <div className='flex flex-col py-2'>
-                    <Link href="/">Home</Link>
-                    <Link href="/docs">Docs</Link>
-                    <Link href="/#faq">FAQs</Link>
-
-                    <Link href="/provider">Provider</Link>
-                    <Link href="/rent">Renting</Link>
-                </div>
-            </div>
-            <div className='text-2xl font-bold'>
-                TAppIN
-            </div>
-        </footer>
-    )
+  return (
+    <footer className="bg-gray-900 flex justify-between items-center text-white px-6 py-3 text-sm ">
+      <div>
+        <div className="flex gap-8 mt-1">
+          <div className="text-gray-400 font-semibold">Quick Links</div>
+          <Link href="/" className="hover:text-gray-300 transition">
+            Home
+          </Link>
+          <Link href="/#faq" className="hover:text-gray-300 transition">
+            FAQs
+          </Link>
+          <Link href="/provider" className="hover:text-gray-300 transition">
+            Provider
+          </Link>
+          <Link href="/rent" className="hover:text-gray-300 transition">
+            Renting
+          </Link>
+        </div>
+      </div>
+      <div className="text-lg font-semibold">DecnAIX</div>
+    </footer>
+  );
 }

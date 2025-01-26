@@ -74,7 +74,7 @@ export default function Machines() {
 
               <div className="mt-4">
                 <span className="text-xs font-medium text-neutral-500 tracking-wide">SPECIFICATIONS</span>
-                <div className="mt-2 flex flex-wrap gap-3">
+                <div className="mt-2 flex flex-wrap gap-3 items-center">
                   
                                 <span className='text-xs text-gray-500'>SPECS</span>
                                 <div className='flex gap-2 flex-wrap font-medium'>

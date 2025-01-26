@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y   wget gcc libpq-dev python3-dev   && r
 WORKDIR /app
 
 # Download the dataset, model script, and requirements file from IPFS
-# RUN wget https://ipfs.io/ipfs/bafkreiduqpybe26wfhpt236jbeyt6nykzyg37kfv4bs23g4pdiurjzqzbi -O dataset.py
+# RUN wget https://ipfs.io/ipfs/bafkreigxenrzm4jp62kmes7vlrupuddyxeenf3uul2ihnzxcybrkca6hoq -O dataset.py
 RUN wget https://ipfs.io/ipfs/bafkreibdtan5kbs2ztg6dyizlzn7dbvy3zlz7qkcn5dbummhaitreji52m -O model.py
 RUN wget https://ipfs.io/ipfs/bafkreigbjxygrvhvdldduhh3ehqsmue5x6mfuxs6oxjpwyvay6p2clrp4i -O requirements.txt
 

@@ -15,7 +15,8 @@ import { useState } from "react";
 import { CREATOR_ADDRESS } from "@/constants/constants";
 import { createComputeTask } from "@/utils/createRequest";
 import { RocketIcon, UploadCloudIcon } from "lucide-react";
-
+import {PinataSDK} from "pinata"
+import axios from "axios"
 const NODE_URL = "https://fullnode.testnet.aptoslabs.com";
 const client = new AptosClient(NODE_URL);
 
@@ -28,7 +29,7 @@ interface Task {
     address: string;
 }
 
-const ComputeCard = ({ id, title, cpu, ram, storage, address }: Task) => {
+const ComputeCard = ({ machine }: Task) => {
     const { account, signAndSubmitTransaction } = useWallet();
     const [isLoading, setIsLoading] = useState(false);
     const [newTitle, setNewTitle] = useState(title);
@@ -38,50 +39,99 @@ const ComputeCard = ({ id, title, cpu, ram, storage, address }: Task) => {
     const [modelFile, setModelFile] = useState<File | null>(null);
     const [datasetFile, setDatasetFile] = useState<File | null>(null);
     const [requirementsFile, setRequirementsFile] = useState<File | null>(null);
+    const [model, setModel] = useState(null);
+  const [ds, setDs] = useState(null);
+  const [req, setReq] = useState(null);
+  const [dis, setDis] = useState(true);
+  const [cid, setCid] = useState(null);  // Store the CID here
+  const [amount, setAmount] = useState(0.1);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const pinata = new PinataSDK({
+    pinataJwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2MDM4MjNhNS0zMDYzLTRiN2EtYjAzMC04ZjEyODhhYjc2YjYiLCJlbWFpbCI6ImhlbWlsZHVkaGF0MDRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiRlJBMSJ9LHsiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiTllDMSJ9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6ImE4MDBmMDg5OThmNDFlMWI0ZjE0Iiwic2NvcGVkS2V5U2VjcmV0IjoiYzYzMWM5OGI3NmY4MzAxZWQxNmYyNmJlZjczMjc2ZDQwNDEwOWU0ZmM0OWFhMzM0M2I3NjU1ZTllODJjZjA5NiIsImV4cCI6MTc2OTM3NTI3NH0.7jZORIMMPHSTHR0VumTtS7eiAi4NPdhGkmi2P42EWFM",
+    pinataGateway: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+});
+
+  // Function to upload files to your Next.js API route and get CID
+  const handleFileUpload = async () => {
+    const formData = new FormData();
+    if (model) formData.append('file', model);
+    if (ds) formData.append('file', ds);
+    if (req) formData.append('file', req);
+
+    try {
+      // Upload the file to Pinata using Pinata SDK
+      const modelResponse = await pinata.upload.file(model);
+      console.log(modelResponse);
+      const modelcid = modelResponse.cid;
+        const dsResponse = await pinata.upload.file(ds);
+        const dscid = dsResponse.cid;
+        const reqResponse = await pinata.upload.file(req);
+        const reqcid = reqResponse.cid;
+        
+        console.log(modelcid, dscid, reqcid, machine._id, account?.address);
+        const response = await axios.post('http://localhost:4000/api/transactions', {
+            modelLink: modelcid,
+            datasetLink: dscid,
+            requirementsLink: reqcid,
+            machineId: machine._id,
+            senderAddress:account?.address,
+            amount: amount
+            });
+console.log(response);
+            if (response.status === 201) {
+                setIsDialogOpen(false); // Close the dialog
+              }
+    } catch (error) {
+        console.error(error);
+        }
+    };
+
+
 
     // Function to create or update a task on the blockchain
-    async function createOrUpdateTask() {
-        if (!account) {
-            console.error("Wallet not connected");
-            return;
-        }
+    // async function createOrUpdateTask() {
+    //     if (!account) {
+    //         console.error("Wallet not connected");
+    //         return;
+    //     }
 
-        setIsLoading(true);
-        try {
-            // Upload files to the backend
-            const formData = new FormData();
-            if (modelFile) formData.append("model", modelFile);
-            if (datasetFile) formData.append("dataset", datasetFile);
-            if (requirementsFile) formData.append("requirements", requirementsFile);
+    //     setIsLoading(true);
+    //     try {
+    //         // Upload files to the backend
+    //         const formData = new FormData();
+    //         if (modelFile) formData.append("model", modelFile);
+    //         if (datasetFile) formData.append("dataset", datasetFile);
+    //         if (requirementsFile) formData.append("requirements", requirementsFile);
 
-            // const uploadResponse = await fetch("https://tappin-api.onrender.com/upload", {
-            //     method: "POST",
-            //     body: formData,
-            // });
+    //         // const uploadResponse = await fetch("https://tappin-api.onrender.com/upload", {
+    //         //     method: "POST",
+    //         //     body: formData,
+    //         // });
 
-            // if (!uploadResponse.ok) {
-            //     throw new Error("Failed to upload files");
-            // }
+    //         // if (!uploadResponse.ok) {
+    //         //     throw new Error("Failed to upload files");
+    //         // }
 
-            // const uploadData = await uploadResponse.json();
-            // console.log("Files uploaded successfully: ", uploadData);
+    //         // const uploadData = await uploadResponse.json();
+    //         // console.log("Files uploaded successfully: ", uploadData);
 
-            // Create or update the task on the blockchain
-            // const address = account.address;
-            // const title = newTitle;
-            // const cpu = newCpu;
-            // const ram = newRam;
-            // const storage = newStorage;
-            // const txnHash = await signAndSubmitTransaction(
-            //     createComputeTask({ id, title, cpu, ram, storage, address })
-            // );
-            // console.log("Transaction successful: ", txnHash);
-        } catch (err) {
-            console.error("Transaction failed: ", err);
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    //         // Create or update the task on the blockchain
+    //         // const address = account.address;
+    //         // const title = newTitle;
+    //         // const cpu = newCpu;
+    //         // const ram = newRam;
+    //         // const storage = newStorage;
+    //         // const txnHash = await signAndSubmitTransaction(
+    //         //     createComputeTask({ id, title, cpu, ram, storage, address })
+    //         // );
+    //         // console.log("Transaction successful: ", txnHash);
+    //     } catch (err) {
+    //         console.error("Transaction failed: ", err);
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
 
     return (
         <div className="offsetstyle p-4 border gap-2 border-black rounded-md bg-orange-400">
@@ -175,7 +225,7 @@ const ComputeCard = ({ id, title, cpu, ram, storage, address }: Task) => {
                                         onChange={(e) => setRequirementsFile(e.target.files ? e.target.files[0] : null)}
                                     />
                                 </div>
-                                <Button onClick={createOrUpdateTask} disabled={isLoading}>
+                                <Button onClick={handleFileUpload} disabled={isLoading}>
                                     {isLoading ? "Updating..." : "Update Task"}
                                 </Button>
                             </div>

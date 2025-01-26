@@ -1,23 +1,39 @@
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 
-interface MachineProps {
-    name_: string;
-  }
+interface Machine {
+  id: string;
+  name: string;
+  specs: {
+      ram: string;
+      cores: string;
+      remainingTime: string;
+  };
+}
 
-  const Machines = ({ name_ }: MachineProps) => {
-    const machines = [
-      {
-        name: name_ || "shubh naam", // Using the 'name' prop or fallback to default value
-        specs: {
-          ram: "4GB RAM",
-          cores: "2 cores",
-          remaining: "12hrs remaining"
-        }
+export default function Machines() {
+  const [machines, setMachines] = useState<Machine[]>([]);
+
+  useEffect(() => {
+      const fetchMachines = async () => {
+          try {
+              // Get email from localStorage
+              const email = localStorage.getItem('user');
+              if (email) {
+                  const response = await axios.get(`http://localhost:4000/machines/${email}`);
+                  setMachines(response.data);
+              }
+              console.log('Machines:');
+          } catch (error) {
+              console.error('Error fetching machines:', error);
+          }
       }
-    ];
 
+      fetchMachines();
+    }, []);
   return (
     <div className="min-h-screen bg-[#fafafa] px-4 py-8 md:px-8 lg:px-12">
       <motion.div 
@@ -43,7 +59,7 @@ interface MachineProps {
         </div>
 
         <div className="grid gap-4">
-          {machines.map((machine, index) => (
+          {machines?.map((machine, index) => (
             <motion.div
               key={machine.name}
               initial={{ opacity: 0, y: 20 }}
@@ -59,15 +75,16 @@ interface MachineProps {
               <div className="mt-4">
                 <span className="text-xs font-medium text-neutral-500 tracking-wide">SPECIFICATIONS</span>
                 <div className="mt-2 flex flex-wrap gap-3">
-                  {Object.values(machine.specs).map((spec, i) => (
-                    <span
-                      key={i}
-                      className="text-sm bg-neutral-100 text-neutral-700 px-3 py-1.5 rounded-lg font-medium"
-                    >
-                      {spec}
-                    </span>
-                  ))}
-                </div>
+                  
+                                <span className='text-xs text-gray-500'>SPECS</span>
+                                <div className='flex gap-2 flex-wrap font-medium'>
+
+                                    <div>Ram : {machine.ram} GB</div>
+                                    <div>Cores :{machine.cpu}</div>
+                                    <div>Storage Size :{machine.size} GB</div>
+                                    <div>Available Time  :{machine.time} hrs</div>
+                                </div>
+                            </div>
               </div>
             </motion.div>
           ))}
@@ -77,4 +94,3 @@ interface MachineProps {
   );
 };
 
-export default Machines;
